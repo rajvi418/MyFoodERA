@@ -30,7 +30,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
-        bottomNav.selectedItemId = R.id.nav_home
+        bottomNav.selectedItemId = R.id.nav_settings
 
         bottomNav.setOnItemSelectedListener {
 

@@ -6,4 +6,8 @@
     <item name="gSignInBtn" type="id" />
     <item name="textView7" type="id" />
     <item name="skipLoginBtn" type="id" />
+    <item name="dishImage" type="id" />
+    <item name="buttonFavorite" type="id" />
+    <item name="buttonCart" type="id" />
+    <item name="favoriteRecyclerView" type="id" />
 </resources>
