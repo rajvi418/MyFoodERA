@@ -22,7 +22,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // Profile click
+        // Profile Click
         findViewById<ImageView>(R.id.profileIcon).setOnClickListener {
             Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show()
         }
@@ -76,22 +76,23 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    // Dish Model
+    // ✅ Correct Dish Model (FIXED)
     data class Dish(
         val name: String,
-        val price: String,
+        val price: Int,
         val imageRes: Int,
         val description: String
     )
 
     private fun loadDishesForTab(tabIndex: Int) {
+
         val dishes = mutableListOf<Dish>()
 
         for (i in 1..6) {
             dishes.add(
                 Dish(
                     name = "Dish ${tabIndex + 1}-$i",
-                    price = "$${5 + i}.99",
+                    price = 100 + (i * 10),
                     imageRes = R.drawable.foodera_logo,
                     description = "This is Dish ${tabIndex + 1}-$i description."
                 )
@@ -101,7 +102,7 @@ class HomeActivity : AppCompatActivity() {
         dishRecyclerView.adapter = DishAdapter(dishes)
     }
 
-    // Adapter
+    // ✅ Adapter
     inner class DishAdapter(private val dishList: List<Dish>) :
         RecyclerView.Adapter<DishAdapter.DishViewHolder>() {
 
@@ -129,17 +130,17 @@ class HomeActivity : AppCompatActivity() {
             val dish = dishList[position]
 
             holder.dishName.text = dish.name
-            holder.dishPrice.text = dish.price
+            holder.dishPrice.text = "₹${dish.price}"
             holder.dishImage.setImageResource(dish.imageRes)
 
-            // ❤️ SET ICON STATE
+            // ❤️ Favorite State
             if (FavoriteManager.isFavorite(this@HomeActivity, dish.name)) {
                 holder.favBtn.setImageResource(R.drawable.ic_fav_filled)
             } else {
                 holder.favBtn.setImageResource(R.drawable.ic_fav_outline)
             }
 
-            // ❤️ CLICK LOGIC
+            // ❤️ Favorite Click
             holder.favBtn.setOnClickListener {
 
                 if (FavoriteManager.isFavorite(this@HomeActivity, dish.name)) {
@@ -156,14 +157,27 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
 
+            // 🛒 Add To Cart
             holder.addToCartBtn.setOnClickListener {
+
+                CartManager.addItem(
+                    this@HomeActivity,
+                    CartItem(
+                        name = dish.name,
+                        imageRes = dish.imageRes,
+                        price = dish.price,
+                        quantity = 1
+                    )
+                )
+
                 Toast.makeText(
                     this@HomeActivity,
-                    "${dish.name} added to Cart",
+                    "${dish.name} added to Cart 🛒",
                     Toast.LENGTH_SHORT
                 ).show()
             }
 
+            // 📖 Show Description
             holder.dishImage.setOnClickListener {
                 AlertDialog.Builder(this@HomeActivity)
                     .setTitle(dish.name)
@@ -173,8 +187,6 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        override fun getItemCount(): Int {
-            return dishList.size
-        }
+        override fun getItemCount(): Int = dishList.size
     }
 }

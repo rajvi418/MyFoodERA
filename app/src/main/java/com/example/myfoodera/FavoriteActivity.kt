@@ -23,7 +23,6 @@ class FavoriteActivity : AppCompatActivity() {
 
         loadFavorites()
 
-        // Bottom Navigation
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNav.selectedItemId = R.id.nav_fav
 
@@ -63,10 +62,11 @@ class FavoriteActivity : AppCompatActivity() {
             Toast.makeText(this, "No Favorites Yet", Toast.LENGTH_SHORT).show()
         }
 
+        // ✅ FIXED: price must be INT not String
         val favoriteDishes = favoriteNames.map {
             HomeActivity.Dish(
                 name = it,
-                price = "$9.99",
+                price = 999,   // <-- INT value (example ₹999)
                 imageRes = R.drawable.foodera_logo,
                 description = "Saved favorite dish"
             )
@@ -104,7 +104,7 @@ class FavoriteActivity : AppCompatActivity() {
 
             val dish = dishList[position]
             holder.dishName.text = dish.name
-            holder.dishPrice.text = dish.price
+            holder.dishPrice.text = "₹${dish.price}"   // ✅ convert Int to String
             holder.dishImage.setImageResource(dish.imageRes)
         }
 

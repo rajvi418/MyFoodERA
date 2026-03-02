@@ -10,4 +10,7 @@
     <item name="buttonFavorite" type="id" />
     <item name="buttonCart" type="id" />
     <item name="favoriteRecyclerView" type="id" />
+    <item name="btnIncrease" type="id" />
+    <item name="btnDecrease" type="id" />
+    <item name="btnRemove" type="id" />
 </resources>
