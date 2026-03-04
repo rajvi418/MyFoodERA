@@ -24,7 +24,9 @@ class HomeActivity : AppCompatActivity() {
 
         // Profile Click
         findViewById<ImageView>(R.id.profileIcon).setOnClickListener {
-            Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show()
+
+            startActivity(Intent(this, UserProfileActivity::class.java))
+
         }
 
         // Bottom Navigation
@@ -160,7 +162,7 @@ class HomeActivity : AppCompatActivity() {
             // 🛒 Add To Cart
             holder.addToCartBtn.setOnClickListener {
 
-                CartManager.addItem(
+                CartManager.addToCart(
                     this@HomeActivity,
                     CartItem(
                         name = dish.name,

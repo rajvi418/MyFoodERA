@@ -1,79 +1,42 @@
 package com.example.myfoodera
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CartActivity : AppCompatActivity() {
 
-    private lateinit var txtItems: TextView
+    private lateinit var recyclerView: RecyclerView
     private lateinit var txtTotal: TextView
-    private lateinit var btnIncrease: ImageView
-    private lateinit var btnDecrease: ImageView
-    private lateinit var btnRemove: ImageView
-    private lateinit var btnClear: TextView
+    private lateinit var adapter: CartAdapter
+    private var cartItems = ArrayList<CartItem>()
 
-    private var selectedIndex = 0
-
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
-        txtItems = findViewById(R.id.txtCartItems)
+        recyclerView = findViewById(R.id.recyclerCart)
         txtTotal = findViewById(R.id.txtTotal)
-        btnIncrease = findViewById(R.id.btnIncrease)
-        btnDecrease = findViewById(R.id.btnDecrease)
-        btnRemove = findViewById(R.id.btnRemove)
-        btnClear = findViewById(R.id.btnClear)
 
-        updateCartUI()
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        btnClear.setOnClickListener {
-            CartManager.clear(this)
-            updateCartUI()
+        loadCart()
+
+        // Profile Click
+        findViewById<ImageView>(R.id.profileIcon).setOnClickListener {
+
+            startActivity(Intent(this, UserProfileActivity::class.java))
+
         }
 
-        btnIncrease.setOnClickListener {
-            val cart = CartManager.getCart(this)
-            if (cart.isNotEmpty()) {
-                cart[selectedIndex].quantity++
-                CartManager.saveCart(this, cart)
-                updateCartUI()
-            }
-        }
 
-        btnDecrease.setOnClickListener {
-            val cart = CartManager.getCart(this)
-            if (cart.isNotEmpty()) {
-                val item = cart[selectedIndex]
-
-                if (item.quantity > 1) {
-                    item.quantity--
-                } else {
-                    cart.removeAt(selectedIndex)
-                    if (selectedIndex > 0) selectedIndex--
-                }
-
-                CartManager.saveCart(this, cart)
-                updateCartUI()
-            }
-        }
-
-        btnRemove.setOnClickListener {
-            val cart = CartManager.getCart(this)
-            if (cart.isNotEmpty()) {
-                cart.removeAt(selectedIndex)
-                if (selectedIndex > 0) selectedIndex--
-                CartManager.saveCart(this, cart)
-                updateCartUI()
-            }
-        }
-
+        // Bottom Navigation
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNav.selectedItemId = R.id.nav_cart
 
@@ -83,11 +46,13 @@ class CartActivity : AppCompatActivity() {
 
                 R.id.nav_home -> {
                     startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
                     true
                 }
 
                 R.id.nav_fav -> {
                     startActivity(Intent(this, FavoriteActivity::class.java))
+                    finish()
                     true
                 }
 
@@ -95,6 +60,7 @@ class CartActivity : AppCompatActivity() {
 
                 R.id.nav_settings -> {
                     startActivity(Intent(this, SettingsActivity::class.java))
+                    finish()
                     true
                 }
 
@@ -103,21 +69,25 @@ class CartActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateCartUI() {
+    private fun loadCart() {
 
-        val cart = CartManager.getCart(this)
+        cartItems = CartManager.getCart(this)
 
-        if (cart.isEmpty()) {
-            txtItems.text = "Cart is Empty"
-            txtTotal.text = "Total: ₹0"
-            return
+        adapter = CartAdapter(cartItems) {
+            // This lambda runs every time cart updates
+            CartManager.saveCart(this, cartItems)
+            updateTotal()
         }
 
-        val itemsText = cart.joinToString("\n\n") {
-            "${it.name}\nPrice: ₹${it.price}\nQuantity: ${it.quantity}\nSubtotal: ₹${it.price * it.quantity}"
-        }
+        recyclerView.adapter = adapter
+        updateTotal()
+    }
 
-        txtItems.text = itemsText
-        txtTotal.text = "Total: ₹${CartManager.getTotal(this)}"
+    private fun updateTotal() {
+        var total = 0.0
+        for (item in cartItems) {
+            total += item.price * item.quantity
+        }
+        txtTotal.text = "₹$total"
     }
 }

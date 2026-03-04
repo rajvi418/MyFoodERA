@@ -2,7 +2,7 @@ package com.example.myfoodera
 
 data class CartItem(
     val name: String,
-    val imageRes: Int,
     val price: Int,
-    var quantity: Int
+    var quantity: Int,
+    val imageRes: Int
 )

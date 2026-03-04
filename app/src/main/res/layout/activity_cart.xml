@@ -3,18 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:background="#F5F5F5">
+
+    <!-- TOP TOOLBAR -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topToolbar"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="@color/white"
+        android:background="#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Logo Left -->
         <ImageView
             android:id="@+id/logoImage"
             android:layout_width="120dp"
@@ -23,50 +25,88 @@
             android:layout_gravity="start"
             android:scaleType="fitCenter"/>
 
-        <!-- Profile Right -->
         <ImageView
             android:id="@+id/profileIcon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_profile"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
-            android:src="@android:drawable/ic_secure"
-            android:contentDescription="Profile"/>
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.appcompat.widget.Toolbar>
 
+    <!-- CART TITLE -->
     <TextView
-        android:id="@+id/txtCartItems"
+        android:id="@+id/cartTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cart Items"
-        android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="20dp"/>
+        android:text="My Cart"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/topToolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp"/>
 
-    <TextView
-        android:id="@+id/txtTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total: ₹0"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/txtCartItems"
-        android:layout_margin="20dp"/>
+    <!-- RECYCLER VIEW -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/cartTitle"
+        app:layout_constraintBottom_toTopOf="@id/totalLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <Button
-        android:id="@+id/btnClear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clear Cart"
-        app:layout_constraintTop_toBottomOf="@id/txtTotal"
-        android:layout_margin="20dp"/>
+    <!-- TOTAL SECTION -->
+    <LinearLayout
+        android:id="@+id/totalLayout"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-<!--    bottom navigation-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:id="@+id/txtTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹0"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FF5722"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <!-- BOTTOM NAVIGATION -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:itemIconTint="#000"
+        app:itemTextColor="#000"
         app:menu="@menu/bottom_menu"
+        app:itemRippleColor="#22000000"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

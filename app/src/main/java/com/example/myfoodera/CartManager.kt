@@ -9,27 +9,24 @@ object CartManager {
     private const val PREF_NAME = "cart_pref"
     private const val KEY_CART = "cart_data"
 
-    fun getCart(context: Context): MutableList<CartItem> {
+    fun getCart(context: Context): ArrayList<CartItem> {
         val sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val json = sharedPref.getString(KEY_CART, null)
 
         return if (json != null) {
-            val type = object : TypeToken<MutableList<CartItem>>() {}.type
+            val type = object : TypeToken<ArrayList<CartItem>>() {}.type
             Gson().fromJson(json, type)
         } else {
-            mutableListOf()
+            arrayListOf()
         }
     }
 
-    fun saveCart(context: Context, cart: MutableList<CartItem>) {
+    fun saveCart(context: Context, cart: ArrayList<CartItem>) {
         val sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        val json = Gson().toJson(cart)
-        editor.putString(KEY_CART, json)
-        editor.apply()
+        sharedPref.edit().putString(KEY_CART, Gson().toJson(cart)).apply()
     }
 
-    fun addItem(context: Context, item: CartItem) {
+    fun addToCart(context: Context, item: CartItem) {
         val cart = getCart(context)
 
         val existing = cart.find { it.name == item.name }
@@ -43,8 +40,28 @@ object CartManager {
         saveCart(context, cart)
     }
 
-    fun clear(context: Context) {
-        saveCart(context, mutableListOf())
+    fun increaseQuantity(context: Context, position: Int) {
+        val cart = getCart(context)
+        cart[position].quantity++
+        saveCart(context, cart)
+    }
+
+    fun decreaseQuantity(context: Context, position: Int) {
+        val cart = getCart(context)
+
+        if (cart[position].quantity > 1) {
+            cart[position].quantity--
+        } else {
+            cart.removeAt(position)
+        }
+
+        saveCart(context, cart)
+    }
+
+    fun removeItem(context: Context, position: Int) {
+        val cart = getCart(context)
+        cart.removeAt(position)
+        saveCart(context, cart)
     }
 
     fun getTotal(context: Context): Int {

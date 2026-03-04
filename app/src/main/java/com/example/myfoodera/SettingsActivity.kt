@@ -3,6 +3,7 @@ package com.example.myfoodera
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +28,13 @@ class SettingsActivity : AppCompatActivity() {
         btnLogout.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
+        }
+
+        // Profile Click
+        findViewById<ImageView>(R.id.profileIcon).setOnClickListener {
+
+            startActivity(Intent(this, UserProfileActivity::class.java))
+
         }
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)

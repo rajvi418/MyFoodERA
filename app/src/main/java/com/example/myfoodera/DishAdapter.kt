@@ -71,12 +71,12 @@ class DishAdapter(
 
             val item = CartItem(
                 name = dish.name,
-                imageRes = dish.imageRes,   // ✅ IMPORTANT
-                price = dish.price,
-                quantity = quantity
+                price = dish.price,          // ✅ Int (NO toDouble)
+                quantity = quantity,
+                imageRes = dish.imageRes     // ✅ REQUIRED
             )
 
-            CartManager.addItem(holder.itemView.context, item)
+            CartManager.addToCart(holder.itemView.context, item)
 
             Toast.makeText(
                 holder.itemView.context,
@@ -87,6 +87,7 @@ class DishAdapter(
             quantity = 1
             holder.txtQuantity.text = quantity.toString()
         }
+
     }
 
     override fun getItemCount(): Int = dishList.size

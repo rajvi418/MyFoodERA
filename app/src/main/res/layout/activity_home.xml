@@ -23,14 +23,21 @@
             android:layout_gravity="start"
             android:scaleType="fitCenter"/>
 
+        <!-- Profile Right -->
         <ImageView
             android:id="@+id/profileIcon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_profile"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
-            android:src="@android:drawable/ic_secure"
-            android:contentDescription="Profile"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
     </androidx.appcompat.widget.Toolbar>
 
     <!-- BANNER IMAGE -->
@@ -64,5 +71,9 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:itemIconTint="#000"
+            app:itemTextColor="#000"
+        android:background="#FFFFFF"
         app:menu="@menu/bottom_menu"/>
+
 </LinearLayout>

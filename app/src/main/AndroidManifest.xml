@@ -40,17 +40,17 @@
         <activity
             android:name=".CartActivity"
             android:exported="false" />
+<!--        user profile activity-->
+        <activity
+            android:name=".UserProfileActivity"
+            android:exported="false"/>
 
         <!-- Settings Activity -->
         <activity
             android:name=".SettingsActivity"
             android:exported="false" />
 
-        <!-- User Profile Activity -->
-        <activity
-            android:name=".ProfileActivity"
-            android:exported="false"
-            tools:ignore="Instantiatable" />
+
 
     </application>
 

@@ -3,6 +3,7 @@ package com.example.myfoodera
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,14 @@ class FavoriteActivity : AppCompatActivity() {
 
         loadFavorites()
 
+        // Profile Click
+        findViewById<ImageView>(R.id.profileIcon).setOnClickListener {
+
+            startActivity(Intent(this, UserProfileActivity::class.java))
+
+        }
+
+        // Bottom Navigation
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNav.selectedItemId = R.id.nav_fav
 
