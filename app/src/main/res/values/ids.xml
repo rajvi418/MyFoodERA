@@ -16,4 +16,7 @@
     <item name="switchDarkMode" type="id" />
     <item name="etSecurityAnswer" type="id" />
     <item name="tvSecurityError" type="id" />
+    <item name="etFullName" type="id" />
+    <item name="etSurname" type="id" />
+    <item name="etMobile" type="id" />
 </resources>
