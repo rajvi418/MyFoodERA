@@ -115,7 +115,7 @@ class HomeActivity : AppCompatActivity() {
             val dishName: android.widget.TextView = itemView.findViewById(R.id.dishName)
             val dishPrice: android.widget.TextView = itemView.findViewById(R.id.dishPrice)
             val favBtn: ImageView = itemView.findViewById(R.id.favBtn)
-            val addToCartBtn: android.widget.Button = itemView.findViewById(R.id.addToCartBtn)
+            val addToCartBtn: android.widget.Button = itemView.findViewById(R.id.btnAddToCart)
         }
 
         override fun onCreateViewHolder(

@@ -98,6 +98,21 @@ class FavoriteActivity : AppCompatActivity() {
 
             val dishImage: android.widget.ImageView =
                 itemView.findViewById(R.id.dishImage)
+
+            val btnAddToCart: android.widget.Button =
+                itemView.findViewById(R.id.btnAddToCart)
+
+            val quantityLayout: android.widget.LinearLayout =
+                itemView.findViewById(R.id.quantityLayout)
+
+            val btnPlus: android.widget.ImageButton =
+                itemView.findViewById(R.id.btnPlus)
+
+            val btnMinus: android.widget.ImageButton =
+                itemView.findViewById(R.id.btnMinus)
+
+            val txtQuantity: android.widget.TextView =
+                itemView.findViewById(R.id.txtQuantity)
         }
 
         override fun onCreateViewHolder(
@@ -112,9 +127,66 @@ class FavoriteActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
             val dish = dishList[position]
+
             holder.dishName.text = dish.name
-            holder.dishPrice.text = "₹${dish.price}"   // ✅ convert Int to String
+            holder.dishPrice.text = "₹${dish.price}"
             holder.dishImage.setImageResource(dish.imageRes)
+
+            var quantity = 0
+
+            // ADD BUTTON CLICK
+            holder.btnAddToCart.setOnClickListener {
+
+                quantity = 1
+                holder.txtQuantity.text = quantity.toString()
+
+                holder.btnAddToCart.visibility = android.view.View.GONE
+                holder.quantityLayout.visibility = android.view.View.VISIBLE
+
+                val cartItem = CartItem(
+                    name = dish.name,
+                    price = dish.price,
+                    imageRes = dish.imageRes,
+                    quantity = quantity
+                )
+
+                CartManager.addToCart(this@FavoriteActivity, cartItem)
+
+                android.widget.Toast.makeText(
+                    this@FavoriteActivity,
+                    "${dish.name} added to cart",
+                    android.widget.Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            // PLUS BUTTON
+            holder.btnPlus.setOnClickListener {
+
+                quantity++
+                holder.txtQuantity.text = quantity.toString()
+
+                val cartItem = CartItem(
+                    name = dish.name,
+                    price = dish.price,
+                    imageRes = dish.imageRes,
+                    quantity = 1
+                )
+
+                CartManager.addToCart(this@FavoriteActivity, cartItem)
+            }
+
+            // MINUS BUTTON
+            holder.btnMinus.setOnClickListener {
+
+                if (quantity > 1) {
+                    quantity--
+                    holder.txtQuantity.text = quantity.toString()
+                } else {
+                    quantity = 0
+                    holder.quantityLayout.visibility = android.view.View.GONE
+                    holder.btnAddToCart.visibility = android.view.View.VISIBLE
+                }
+            }
         }
 
         override fun getItemCount(): Int {

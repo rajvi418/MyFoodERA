@@ -3,6 +3,7 @@ package com.example.myfoodera
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -23,7 +24,7 @@ class DishAdapter(
         val btnMinus: ImageButton = itemView.findViewById(R.id.btnMinus)
         val txtQuantity: TextView = itemView.findViewById(R.id.txtQuantity)
 
-        val addToCartBtn: TextView = itemView.findViewById(R.id.addToCartBtn)
+        val btnAddToCart = itemView.findViewById<Button>(R.id.btnAddToCart)
         val favBtn: ImageView = itemView.findViewById(R.id.favBtn)
     }
 
@@ -67,7 +68,7 @@ class DishAdapter(
         }
 
         // 🛒 Add To Cart
-        holder.addToCartBtn.setOnClickListener {
+        holder.btnAddToCart.setOnClickListener {
 
             val item = CartItem(
                 name = dish.name,

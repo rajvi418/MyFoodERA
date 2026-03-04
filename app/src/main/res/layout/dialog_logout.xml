@@ -29,7 +29,9 @@
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
+            android:backgroundTint="#fff"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:text="Cancel"/>
 
         <Button
