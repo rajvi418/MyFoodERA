@@ -13,4 +13,7 @@
     <item name="btnIncrease" type="id" />
     <item name="btnDecrease" type="id" />
     <item name="btnRemove" type="id" />
+    <item name="switchDarkMode" type="id" />
+    <item name="etSecurityAnswer" type="id" />
+    <item name="tvSecurityError" type="id" />
 </resources>

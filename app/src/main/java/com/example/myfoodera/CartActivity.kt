@@ -30,11 +30,8 @@ class CartActivity : AppCompatActivity() {
 
         // Profile Click
         findViewById<ImageView>(R.id.profileIcon).setOnClickListener {
-
-            startActivity(Intent(this, UserProfileActivity::class.java))
-
+            Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show()
         }
-
 
         // Bottom Navigation
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
