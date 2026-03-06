@@ -58,7 +58,9 @@
         <activity
             android:name=".PaymentActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".TrackOrderActivity"
+            android:exported="false" />
 
         <activity
             android:name=".WaitingConfirmationActivity"
