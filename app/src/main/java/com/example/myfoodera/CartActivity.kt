@@ -2,6 +2,7 @@ package com.example.myfoodera
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -33,6 +34,15 @@ class CartActivity : AppCompatActivity() {
             Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show()
         }
 
+//        paymentactivity
+        val btnProceedPayment = findViewById<Button>(R.id.btnProceedPayment)
+
+        btnProceedPayment.setOnClickListener {
+
+            val intent = Intent(this, PaymentActivity::class.java)
+            startActivity(intent)
+
+        }
         // Bottom Navigation
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNav.selectedItemId = R.id.nav_cart

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:fitsSystemWindows="true">
+
+    <!-- TOP TOOLBAR -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/topToolbar"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:scaleType="fitCenter"
+            android:src="@drawable/foodera_logo" />
+
+        <ImageView
+            android:id="@+id/profileIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_profile" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- TITLE -->
+    <TextView
+        android:id="@+id/paymentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="Select Payment Method"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topToolbar" />
+
+    <!-- PAYMENT METHODS -->
+    <RadioGroup
+        android:id="@+id/paymentGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/paymentTitle">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cash on Delivery" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UPI Payment" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Credit / Debit Card" />
+
+    </RadioGroup>
+
+    <!-- PAY NOW BUTTON -->
+    <Button
+        android:id="@+id/btnPayNow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="#FF5722"
+        android:text="Pay Now"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/paymentGroup" />
+
+    <!-- BOTTOM NAVIGATION -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:itemIconTint="#000"
+        app:itemTextColor="#000"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

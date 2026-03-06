@@ -19,4 +19,7 @@
     <item name="etFullName" type="id" />
     <item name="etSurname" type="id" />
     <item name="etMobile" type="id" />
+    <item name="txtOrderId" type="id" />
+    <item name="btnBackHome" type="id" />
+    <item name="txtDelivery" type="id" />
 </resources>
