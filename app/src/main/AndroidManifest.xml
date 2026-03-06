@@ -59,6 +59,10 @@
             android:name=".PaymentActivity"
             android:exported="false" />
 
+
+        <activity
+            android:name=".WaitingConfirmationActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

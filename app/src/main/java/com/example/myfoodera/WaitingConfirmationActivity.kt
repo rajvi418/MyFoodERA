@@ -1,27 +1,20 @@
 package com.example.myfoodera
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class OrderPlacedActivity : AppCompatActivity() {
+class WaitingConfirmationActivity : AppCompatActivity() {
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_order_placed)
+        setContentView(R.layout.activity_waiting_confirmation)
 
-        val btnHome = findViewById<Button>(R.id.btnHome)
 
-        btnHome.setOnClickListener {
-
-            startActivity(Intent(this, HomeActivity::class.java))
-            finish()
-
-        }
         // Profile Click
         findViewById<ImageView>(R.id.profileIcon).setOnClickListener {
 
@@ -29,8 +22,10 @@ class OrderPlacedActivity : AppCompatActivity() {
 
         }
 
+
         // Bottom Navigation
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNav.selectedItemId = R.id.nav_cart
 
         bottomNav.setOnItemSelectedListener {
 
@@ -38,21 +33,21 @@ class OrderPlacedActivity : AppCompatActivity() {
 
                 R.id.nav_home -> {
                     startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
                     true
                 }
 
                 R.id.nav_fav -> {
                     startActivity(Intent(this, FavoriteActivity::class.java))
+                    finish()
                     true
                 }
 
-                R.id.nav_cart -> {
-                    startActivity(Intent(this, CartActivity::class.java))
-                    true
-                }
+                R.id.nav_cart -> true
 
                 R.id.nav_settings -> {
                     startActivity(Intent(this, SettingsActivity::class.java))
+                    finish()
                     true
                 }
 

@@ -25,24 +25,13 @@ class PaymentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
 
-        // 🔹 Firebase connection (UNCOMMENT WHEN FIREBASE ADDED)
+        // 🔹 Firebase connection (UNCOMMENT LATER)
         /*
         database = FirebaseDatabase.getInstance().reference
-
-        Example Firebase Structure:
-
-        payment_methods
-            cod : true
-            upi : true
-            card : false
-
-        orders
-            orderId
-                userId
-                paymentMethod
-                status
-                time
         */
+
+        paymentGroup = findViewById(R.id.paymentGroup)
+        btnPayNow = findViewById(R.id.btnPayNow)
 
         // Bottom Navigation
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
@@ -73,23 +62,6 @@ class PaymentActivity : AppCompatActivity() {
             }
         }
 
-        paymentGroup = findViewById(R.id.paymentGroup)
-        btnPayNow = findViewById(R.id.btnPayNow)
-
-        // 🔹 Later you can LOAD payment methods from Firebase
-        /*
-        database.child("payment_methods").get().addOnSuccessListener {
-
-            val codEnabled = it.child("cod").value as Boolean
-            val upiEnabled = it.child("upi").value as Boolean
-            val cardEnabled = it.child("card").value as Boolean
-
-            findViewById<RadioButton>(R.id.rbCod).isEnabled = codEnabled
-            findViewById<RadioButton>(R.id.rbUpi).isEnabled = upiEnabled
-            findViewById<RadioButton>(R.id.rbCard).isEnabled = cardEnabled
-        }
-        */
-
         btnPayNow.setOnClickListener {
 
             val selectedId = paymentGroup.checkedRadioButtonId
@@ -100,32 +72,24 @@ class PaymentActivity : AppCompatActivity() {
             }
 
             val selectedRadio = findViewById<RadioButton>(selectedId)
-            val paymentMethod = selectedRadio.text.toString()
+            selectedRadio.text.toString()
 
-            Toast.makeText(this, "Selected: $paymentMethod", Toast.LENGTH_SHORT).show()
-
-            // 🔹 Fake Payment (No real gateway)
-            // Only show success
-
-            // 🔹 Save order to Firebase (LATER)
+            // 🔹 Save order to Firebase later
             /*
             val orderId = database.child("orders").push().key
 
             val orderData = HashMap<String, Any>()
             orderData["paymentMethod"] = paymentMethod
-            orderData["status"] = "Paid"
+            orderData["status"] = "waiting"
             orderData["time"] = System.currentTimeMillis()
 
             database.child("orders").child(orderId!!).setValue(orderData)
             */
 
-            Toast.makeText(this, "Payment Successful!", Toast.LENGTH_LONG).show()
-
-            // 🔹 Open Order Success Page
-            startActivity(Intent(this, OrderSuccessActivity::class.java))
+            // ✅ OPEN WAITING SCREEN
+            startActivity(Intent(this, WaitingConfirmationActivity::class.java))
 
         }
 
     }
-
 }
